@@ -175,28 +175,31 @@ function changeOption(strOpt,strValue){
     });
 }
 
+// ** 在這裡輸入你的檔案名稱或 URL **
 function openByGet(){
+    // 請在這個陣列中輸入你要載入的 STL 檔案名稱或完整 URL
     var urls = [
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/1.stl,
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/2.stl",
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/3.stl",
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/4.stl",
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/5.stl",
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/6.stl",
-        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/7.stl"
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/1.stl",  // <- 修改這裡，輸入你的第一個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/2.stl",  // <- 修改這裡，輸入你的第二個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/3.stl",  // <- 修改這裡，輸入你的第三個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/4.stl",  // <- 修改這裡，輸入你的第四個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/5.stl",  // <- 修改這裡，輸入你的第五個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/6.stl",  // <- 修改這裡，輸入你的第六個檔案名稱
+        "https://mdecad2024.github.io/hw-CHN41223132/cmsimde/static/viewstl.html?src=https://s104.cycu.org/~41223132/7.stl"   // <- 修改這裡，輸入你的第七個檔案名稱
     ];
-    var opt = getOptions();
+
+    var opt = getOptions(); // 取得使用者選擇的渲染選項
     urls.forEach((url, index) => {
-        var canvasId = 'cv' + (index + 1);
+        var canvasId = 'cv' + (index + 1); // 動態生成 canvas 的 ID
         if (!document.getElementById(canvasId)) {
-            createCanvas(canvasId);
+            createCanvas(canvasId); // 動態建立 canvas
         }
-        opt.SceneUrl = url;
-        readSTLfile(opt, canvasId);
+        opt.SceneUrl = url; // 將檔案 URL 套用到選項
+        readSTLfile(opt, canvasId); // 載入 STL 檔案
     });
 }
 
-openByGet();
+openByGet(); // 執行載入函數
 </script><h3>作業:</h3>
 <p>畫老師指定的圖，我們小組分工來畫<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/MOZI-IEJvkA?si=-ps-No116drRm4gX" title="YouTube video player" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/LWJzt11gLdI?si=WenCd4jPlFERLXjI" title="YouTube video player" width="560"></iframe></p>
