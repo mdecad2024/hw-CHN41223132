@@ -226,7 +226,7 @@ openByGet(); // 執行載入函數
 <option>low</option>
 <option>high</option>
 </select></div>
-<div><input accept=".stl" id="fileInput" type="file"/> <button onclick="loadUploadedFile()">Load File</button></div>
+<div><button onclick="loadFromURL()">Load From URL</button></div>
 <script type="text/javascript">
 var viewer3d;
 
@@ -268,22 +268,10 @@ function changeOption(strOpt, strValue) {
     viewer3d.update();
 }
 
-function loadUploadedFile() {
-    var fileInput = document.getElementById("fileInput");
-    var file = fileInput.files[0];
-
-    if (!file || file.name !== "組合2.stl") {
-        alert("Please upload a file named 組合2.stl.");
-        return;
-    }
-
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        var opt = getOptions();
-        opt.SceneUrl = e.target.result;
-        readSTLfile(opt);
-    };
-    reader.readAsDataURL(file);
+function loadFromURL() {
+    var opt = getOptions();
+    opt.SceneUrl = "https://s104.cycu.org/~41223132/%E7%B5%84%E5%90%882.stl";
+    readSTLfile(opt);
 }
 </script><h1>HW1</h1>
 <p>Homework 1 (10%):</p>
