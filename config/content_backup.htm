@@ -32,7 +32,94 @@
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/40QTlwP1s1A?si=btxuOuMvhWfIsNak" title="YouTube video player" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QDBVymSb_GY?si=LfNnTm1v_btWU2Y7" title="YouTube video player" width="560"></iframe></p>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/mTBjp63o70w?si=6PKKveiuluUjcPyG" title="YouTube video player" width="560"></iframe></p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/l6S4e4TxWWc?si=LK8Yx2m_24K8KM_s" title="YouTube video player" width="560"></iframe></p><h2>w9</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/l6S4e4TxWWc?si=LK8Yx2m_24K8KM_s" title="YouTube video player" width="560"></iframe></p>
+<script src="/static/jsc3d.js" type="text/javascript"></script>
+<div id="models"></div>
+<!-- canvas 動態生成 -->
+<div style="width: 400px; height: 70px; border: 1px solid;">Model Color:<input id="mdlClr" onchange="changeOption('ModelColor',this.value)" style="margin-right: 50px;" type="color" value="#00ff40"/> Back Color1:<input id="bckClr1" onchange="changeOption('BackgroundColor1',this.value)" style="margin-right: 50px;" type="color"/> Back Color2:<input id="bckClr2" onchange="changeOption('BackgroundColor2',this.value)" type="color"/><br/> Render Mode:<select id="render" onchange="changeOption('RenderMode',this.value)">
+<option>Flat</option>
+<option>Point</option>
+<option>Wireframe</option>
+<option>Smooth</option>
+</select>Definition:<select id="defini" onchange="changeOption('Definition',this.value)">
+<option>Standard</option>
+<option>low</option>
+<option>high</option>
+</select></div>
+<script type="text/javascript">
+var viewers = [];
+
+function getOptions(){
+    var mc = document.getElementById("mdlClr").value;
+    var bc1 = document.getElementById("bckClr1").value;
+    var bc2 = document.getElementById("bckClr2").value;
+    var ren = document.getElementById("render").value;
+    var def = document.getElementById("defini").value;
+    return {ModelColor: mc, BackgroundColor1: bc1, BackgroundColor2: bc2, RenderMode: ren, Definition: def};
+}
+
+function createCanvas(id) {
+    var canvas = document.createElement('canvas');
+    canvas.id = id;
+    canvas.width = 400;
+    canvas.height = 300;
+    canvas.style.border = '1px solid';
+    document.getElementById('models').appendChild(canvas);
+    return canvas;
+}
+
+function readSTLfile(opt, canvasId){
+    var canvas = document.getElementById(canvasId);
+    var viewer = new JSC3D.Viewer(canvas);
+    viewer.setParameter('SceneUrl', opt.SceneUrl);
+    viewer.setParameter('InitRotationX', 0);
+    viewer.setParameter('InitRotationY', 0);
+    viewer.setParameter('InitRotationZ', 0);
+    viewer.setParameter('ModelColor', opt.ModelColor);
+    viewer.setParameter('BackgroundColor1', opt.BackgroundColor1);
+    viewer.setParameter('BackgroundColor2', opt.BackgroundColor2);
+    viewer.setParameter('RenderMode', opt.RenderMode);
+    viewer.setParameter('Definition', opt.Definition);
+    viewer.init();
+    viewer.update();
+    viewers.push(viewer); // 保存 viewer 實例
+}
+
+function changeOption(strOpt,strValue){
+    console.log("change " + strOpt + " to " + strValue);
+    viewers.forEach(viewer => {
+        viewer.setParameter(strOpt, strValue);
+        viewer.init();
+        viewer.update();
+    });
+}
+
+// ** 在這裡輸入你的檔案名稱或 URL **
+function openByGet(){
+    // 請在這個陣列中輸入你要載入的 STL 檔案名稱或完整 URL
+    var urls = [
+        "https://s104.cycu.org/~41223132/model1_1.stl",  // <- 修改這裡，輸入你的第一個檔案名稱
+        "https://s104.cycu.org/~41223132/model2.stl",  // <- 修改這裡，輸入你的第二個檔案名稱
+        "https://s104.cycu.org/~41223132/model3.stl",  // <- 修改這裡，輸入你的第三個檔案名稱
+        "https://s104.cycu.org/~41223132/model5.stl",  // <- 修改這裡，輸入你的第四個檔案名稱
+        "https://s104.cycu.org/~41223132/model6.stl",  // <- 修改這裡，輸入你的第五個檔案名稱
+        
+    ];
+
+    var opt = getOptions(); // 取得使用者選擇的渲染選項
+    urls.forEach((url, index) => {
+        var canvasId = 'cv' + (index + 1); // 動態生成 canvas 的 ID
+        if (!document.getElementById(canvasId)) {
+            createCanvas(canvasId); // 動態建立 canvas
+        }
+        opt.SceneUrl = url; // 將檔案 URL 套用到選項
+        readSTLfile(opt, canvasId); // 載入 STL 檔案
+    });
+}
+
+openByGet(); // 執行載入函數
+</script>
+<h6></h6><h2>w9</h2>
 <p>今天打期中期望成績，填寫表單，有時候會忘記一個星期要至少上傳兩次，要加強。</p>
 <h2>w10</h2>
 <p></p>
