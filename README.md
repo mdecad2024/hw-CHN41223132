@@ -1,6 +1,6 @@
 # cad2024 電腦輔助設計與實習作業網站
 
-template 網站: https://mde.tw/cad2024_hw (請完成設定後刪除這一行)
+template 網站: https://mde.tw/cad2024_hw 
 
 使用者: 41223132
 
